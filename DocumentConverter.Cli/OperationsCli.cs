@@ -1,19 +1,18 @@
 ﻿using DocumentConverter.Contracts.Interfaces;
+using DocumentConverter.Contracts.Interfaces.InternalFormat;
 using DocumentConverter.Contracts.Interfaces.OrganizationHandler;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DocumentConverter.Cli
 {
     public class OperationsCli : IOperationsCli
     {
         private readonly IOrganizationHandlerService _organizationHandlerService;
-        public OperationsCli(IOrganizationHandlerService organizationHandlerService)
+        private readonly IInternalFormatService _internalFormat;
+        public OperationsCli(IOrganizationHandlerService organizationHandlerService, IInternalFormatService internalFormat)
         {
             _organizationHandlerService = organizationHandlerService;
+            _internalFormat = internalFormat;
         }
         public void ExecuteProgram(int input)
         {
@@ -62,7 +61,20 @@ namespace DocumentConverter.Cli
             Console.WriteLine("Organization Name");
             var name = Console.ReadLine();
             _organizationHandlerService.RemoveOrganization(id, name);
+        }
+        public void ExportFile()
+        {
+            Console.WriteLine("Please type in document path:");
+            var documentPath = Console.ReadLine();
+            if (_internalFormat.CheckIfOrganizationsInFilePathExist(documentPath))
+            {
 
+            }
+            else
+            {
+                Console.WriteLine("Bad filepath or no organizatios");
+            }
+            CliInformation();
         }
     }
 }

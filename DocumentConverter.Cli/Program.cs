@@ -1,5 +1,9 @@
-﻿using DocumentConverter.BusinessLogic.Classes.OrganizationHandler;
+﻿using DocumentConverter.BusinessLogic.Classes.DocumentHandler;
+using DocumentConverter.BusinessLogic.Classes.InternalFormat;
+using DocumentConverter.BusinessLogic.Classes.OrganizationHandler;
 using DocumentConverter.Contracts.Interfaces;
+using DocumentConverter.Contracts.Interfaces.DocumentHandler;
+using DocumentConverter.Contracts.Interfaces.InternalFormat;
 using DocumentConverter.Contracts.Interfaces.OrganizationHandler;
 using DocumentConverter.EF.Core.Models;
 using Microsoft.EntityFrameworkCore;
@@ -41,6 +45,10 @@ namespace DocumentConverter.Cli
                             options.UseSqlServer("Data Source=LT-LIT-SC-0597\\MSSQLSERVER01;Initial Catalog=OrganizationsAndDocuments;Integrated Security=True"))
                             .AddSingleton<IOrganizationHandlerRepository, OrganizationHandlerRepository>()
                             .AddSingleton<IOrganizationHandlerService, OrganizationHandlerService>()
+                            .AddSingleton<IInternalFormatService, InternalFormatService>()
+                            .AddSingleton<IInternalFormatRepository, InternalFormatRepository>()
+                            .AddSingleton<IDocumentHandlerService, DocumentHandlerService>()
+                            .AddSingleton<IDocumentHandlerRepository, DocumentHandlerRepository>()
                             .AddSingleton<IOperationsCli, OperationsCli>());
 
     }

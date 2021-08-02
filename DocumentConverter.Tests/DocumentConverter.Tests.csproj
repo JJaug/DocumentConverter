@@ -20,9 +20,15 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+    <PackageReference Include="NSubstitute" Version="4.2.2" />
     <PackageReference Include="NUnit" Version="3.13.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
     <PackageReference Include="coverlet.collector" Version="3.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DocumentConverter.BusinessLogic\DocumentConverter.BusinessLogic.csproj" />
+    <ProjectReference Include="..\DocumentConverter.Contracts\DocumentConverter.Contracts.csproj" />
   </ItemGroup>
 
 </Project>
