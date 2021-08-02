@@ -1,53 +1,48 @@
-﻿using System;
+﻿using DocumentConverter.BusinessLogic.Classes.OrganizationHandler;
+using DocumentConverter.Contracts.Interfaces;
+using DocumentConverter.Contracts.Interfaces.OrganizationHandler;
+using DocumentConverter.EF.Core.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System;
+using System.Threading.Tasks;
 
 namespace DocumentConverter.Cli
 {
     class Program
     {
-        static void Main(string[] args)
+        static Task Main(string[] args)
         {
+            using IHost host = CreateHostBuilder(args).Build();
+            var service = host.Services;
+            var cli = service.GetService<IOperationsCli>();
+
             while (true)
             {
                 Console.WriteLine("Welcome to DocumentExporter!");
-                var command = CliInformation();
+                cli.CliInformation();
+                var command = Console.ReadLine();
                 var input = int.Parse(command);
-                ExecuteProgram(input);
+                cli.ExecuteProgram(input);
                 if (input == 5)
                 {
                     Console.WriteLine("Bye bye!");
                     break;
                 }
             }
+            return host.RunAsync();
+        }
 
-        }
-        static void ExecuteProgram(int input)
-        {
-            switch (input)
-            {
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                default:
-                    Console.WriteLine("Wrong input value.");
-                    break;
-            }
-        }
-        static string CliInformation()
-        {
-            Console.WriteLine("Type in the number");
-            Console.WriteLine("1. Export file");
-            Console.WriteLine("2. Check files");
-            Console.WriteLine("3. Add organization");
-            Console.WriteLine("4. Remove organization");
-            Console.WriteLine("5. Exit");
-            return Console.ReadLine();
-        }
+        static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureServices((_, services) =>
+                            services.AddDbContext<OrganizationsAndDocumentsContext>(options =>
+                            options.UseSqlServer("Data Source=LT-LIT-SC-0597\\MSSQLSERVER01;Initial Catalog=OrganizationsAndDocuments;Integrated Security=True"))
+                            .AddSingleton<IOrganizationHandlerRepository, OrganizationHandlerRepository>()
+                            .AddSingleton<IOrganizationHandlerService, OrganizationHandlerService>()
+                            .AddSingleton<IOperationsCli, OperationsCli>()
+                            .AddTransient<OperationLogger>());
+
     }
 }
