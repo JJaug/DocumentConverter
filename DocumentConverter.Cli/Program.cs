@@ -17,10 +17,10 @@ namespace DocumentConverter.Cli
             using IHost host = CreateHostBuilder(args).Build();
             var service = host.Services;
             var cli = service.GetService<IOperationsCli>();
+            Console.WriteLine("Welcome to DocumentExporter!");
 
             while (true)
             {
-                Console.WriteLine("Welcome to DocumentExporter!");
                 cli.CliInformation();
                 var command = Console.ReadLine();
                 var input = int.Parse(command);
@@ -41,8 +41,7 @@ namespace DocumentConverter.Cli
                             options.UseSqlServer("Data Source=LT-LIT-SC-0597\\MSSQLSERVER01;Initial Catalog=OrganizationsAndDocuments;Integrated Security=True"))
                             .AddSingleton<IOrganizationHandlerRepository, OrganizationHandlerRepository>()
                             .AddSingleton<IOrganizationHandlerService, OrganizationHandlerService>()
-                            .AddSingleton<IOperationsCli, OperationsCli>()
-                            .AddTransient<OperationLogger>());
+                            .AddSingleton<IOperationsCli, OperationsCli>());
 
     }
 }

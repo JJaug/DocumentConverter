@@ -17,6 +17,12 @@ namespace DocumentConverter.BusinessLogic.Classes.OrganizationHandler
             _context.SaveChanges();
         }
 
+        public void DeleteFromDatabase(int id, string name)
+        {
+            var organization = _context.Organizations.FirstOrDefault(o => o.Id == id && o.Name == name);
+            _context.Organizations.Remove(organization);
+        }
+
         public int GetFormatId(string formatName)
         {
             var format = _context.Formats.FirstOrDefault(f => f.Name == formatName);

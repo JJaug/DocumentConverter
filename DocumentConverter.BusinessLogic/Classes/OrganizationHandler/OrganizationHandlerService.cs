@@ -17,13 +17,9 @@ namespace DocumentConverter.BusinessLogic.Classes.OrganizationHandler
             var organization = new Organization { Name = name, FormatId = formatId, ExportPath = filePath, CreatedDate = DateTime.Now };
             _organizationHandlerRepository.AddToDatabase(organization);
         }
-        public void RemoveOrganization()
+        public void RemoveOrganization(int id, string name)
         {
-
-        }
-        public void UpdateOrganization()
-        {
-
+            _organizationHandlerRepository.DeleteFromDatabase(id, name);
         }
     }
 }

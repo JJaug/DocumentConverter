@@ -27,6 +27,7 @@ namespace DocumentConverter.Cli
                     AddOrganization();
                     break;
                 case 4:
+                    RemoveOrganization();
                     break;
                 case 5:
                     break;
@@ -53,6 +54,15 @@ namespace DocumentConverter.Cli
             Console.WriteLine("Organization Export Path");
             var path = Console.ReadLine();
             _organizationHandlerService.AddOrganization(name, format, path);
+        }
+        public void RemoveOrganization()
+        {
+            Console.WriteLine("Organization Id");
+            var id = int.Parse(Console.ReadLine());
+            Console.WriteLine("Organization Name");
+            var name = Console.ReadLine();
+            _organizationHandlerService.RemoveOrganization(id, name);
+
         }
     }
 }
