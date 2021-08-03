@@ -5,10 +5,10 @@ namespace DocumentConverter.BusinessLogic.Classes.InternalFormat
 {
     public class InternalFormatRepository : IInternalFormatRepository
     {
-        private readonly OrganizationsAndDocumentsContext _organizationsAndDocumentsContext;
-        public InternalFormatRepository(OrganizationsAndDocumentsContext organizationsAndDocumentsContext)
+        private readonly OrganizationsAndDocumentsContext _context;
+        public InternalFormatRepository(OrganizationsAndDocumentsContext context)
         {
-            _organizationsAndDocumentsContext = organizationsAndDocumentsContext;
+            _context = context;
         }
 
     }

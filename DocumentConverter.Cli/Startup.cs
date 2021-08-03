@@ -1,7 +1,9 @@
-﻿using DocumentConverter.BusinessLogic.Classes.DocumentHandler;
+﻿using DocumentConverter.BusinessLogic.Classes.Converter;
+using DocumentConverter.BusinessLogic.Classes.DocumentHandler;
 using DocumentConverter.BusinessLogic.Classes.InternalFormat;
 using DocumentConverter.BusinessLogic.Classes.OrganizationHandler;
 using DocumentConverter.Contracts.Interfaces;
+using DocumentConverter.Contracts.Interfaces.Converter;
 using DocumentConverter.Contracts.Interfaces.DocumentHandler;
 using DocumentConverter.Contracts.Interfaces.InternalFormat;
 using DocumentConverter.Contracts.Interfaces.OrganizationHandler;
@@ -34,6 +36,8 @@ namespace DocumentConverter.Cli
             services.AddScoped<IInternalFormatRepository, InternalFormatRepository>();
             services.AddScoped<IDocumentHandlerService, DocumentHandlerService>();
             services.AddScoped<IDocumentHandlerRepository, DocumentHandlerRepository>();
+            services.AddScoped<IConverterToXml, ConverterToXml>();
+            services.AddScoped<IConverterToJson, ConverterToJson>();
             services.AddScoped<IOperationsCli, OperationsCli>();
         }
     }

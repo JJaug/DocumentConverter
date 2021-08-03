@@ -25,13 +25,16 @@ namespace DocumentConverter.BusinessLogic.Classes.OrganizationHandler
 
         public int GetFormatId(string formatName)
         {
-            var format = _context.Formats.FirstOrDefault(f => f.Name == formatName);
-            return format.Id;
+            return _context.Formats.FirstOrDefault(f => f.Name == formatName).Id;
         }
         public bool FindOrganizationById(string id)
         {
             var organization = _context.Organizations.FirstOrDefault(o => o.Id == id);
             return organization != null;
+        }
+        public int GetFormatType(string organizationId)
+        {
+            return _context.Organizations.FirstOrDefault(o => o.Id == organizationId).FormatId;
         }
     }
 }

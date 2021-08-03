@@ -2,8 +2,6 @@
 using DocumentConverter.EF.Core.Models;
 using DocumentConverter.Models.Models;
 using System;
-using System.IO;
-using System.Xml.Serialization;
 
 namespace DocumentConverter.BusinessLogic.Classes.OrganizationHandler
 {
@@ -24,15 +22,8 @@ namespace DocumentConverter.BusinessLogic.Classes.OrganizationHandler
         {
             _organizationRepository.DeleteFromDatabase(id, name);
         }
-        public bool CheckIfOrganizationsInFilePathExist(string documentPath)
+        public bool CheckIfOrganizationsInFilePathExist(Order order)
         {
-            var order = new Order();
-            XmlSerializer xs = new XmlSerializer(typeof(Order));
-
-            using (FileStream stream = File.Open(documentPath, FileMode.Open))
-            {
-                order = (Order)xs.Deserialize(stream);
-            }
             var senderId = order.Sender.ID;
             var receiverId = order.Receiver.ID;
             if (_organizationRepository.FindOrganizationById(senderId) && _organizationRepository.FindOrganizationById(receiverId))
@@ -43,6 +34,11 @@ namespace DocumentConverter.BusinessLogic.Classes.OrganizationHandler
             {
                 return false;
             }
+        }
+        public int GetFormatType(Order order)
+        {
+            var receiverOrganizationId = order.Receiver.ID;
+            return _organizationRepository.GetFormatType(receiverOrganizationId);
         }
     }
 }

@@ -1,8 +1,11 @@
 ﻿using DocumentConverter.Contracts.Interfaces;
+using DocumentConverter.Contracts.Interfaces.Converter;
 using DocumentConverter.Contracts.Interfaces.InternalFormat;
 using DocumentConverter.Contracts.Interfaces.OrganizationHandler;
 using DocumentConverter.Models.Models;
 using System;
+using System.IO;
+using System.Text;
 
 namespace DocumentConverter.Cli
 {
@@ -10,10 +13,12 @@ namespace DocumentConverter.Cli
     {
         private readonly IOrganizationService _organizationService;
         private readonly IInternalFormatService _internalFormatService;
-        public OperationsCli(IOrganizationService organizationService, IInternalFormatService internalFormat)
+        private readonly IConverterToXml _converterToXml;
+        public OperationsCli(IOrganizationService organizationService, IInternalFormatService internalFormat, IConverterToXml converterToXml)
         {
             _organizationService = organizationService;
             _internalFormatService = internalFormat;
+            _converterToXml = converterToXml;
         }
         public void ExecuteProgram(int input)
         {
@@ -71,9 +76,15 @@ namespace DocumentConverter.Cli
         {
             Console.WriteLine("Please type in document path:");
             var documentPath = Console.ReadLine();
-            if (_organizationService.CheckIfOrganizationsInFilePathExist(documentPath))
+            var stream = _internalFormatService.ConvertXmlFileToStream(documentPath);
+            var order = _converterToXml.Convert(stream);
+            if (_organizationService.CheckIfOrganizationsInFilePathExist(order))
             {
+                var formatType = _organizationService.GetFormatType(order);
+                switch (formatType)
+                {
 
+                }
             }
             else
             {
