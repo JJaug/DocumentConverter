@@ -4,8 +4,6 @@ using DocumentConverter.Contracts.Interfaces.InternalFormat;
 using DocumentConverter.Contracts.Interfaces.OrganizationHandler;
 using DocumentConverter.Models.Models;
 using System;
-using System.IO;
-using System.Text;
 
 namespace DocumentConverter.Cli
 {

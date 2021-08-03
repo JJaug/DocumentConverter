@@ -1,7 +1,6 @@
 ﻿using DocumentConverter.Contracts.Interfaces.Converter;
 using DocumentConverter.Models.Models;
 using System.IO;
-using System.Text;
 using System.Xml.Serialization;
 
 namespace DocumentConverter.BusinessLogic.Classes.Converter
