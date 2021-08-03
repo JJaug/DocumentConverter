@@ -2,7 +2,6 @@
 {
     public interface IInternalFormatRepository
     {
-        public bool FindOrganizationById(string id);
 
     }
 }

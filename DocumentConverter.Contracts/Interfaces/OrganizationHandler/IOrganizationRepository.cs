@@ -2,10 +2,11 @@
 
 namespace DocumentConverter.Contracts.Interfaces.OrganizationHandler
 {
-    public interface IOrganizationHandlerRepository
+    public interface IOrganizationRepository
     {
         public void AddToDatabase(Organization organization);
         public int GetFormatId(string formatName);
         public void DeleteFromDatabase(string id, string name);
+        public bool FindOrganizationById(string id);
     }
 }

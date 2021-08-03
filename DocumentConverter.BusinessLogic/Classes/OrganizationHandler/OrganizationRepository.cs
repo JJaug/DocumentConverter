@@ -4,10 +4,10 @@ using System.Linq;
 
 namespace DocumentConverter.BusinessLogic.Classes.OrganizationHandler
 {
-    public class OrganizationHandlerRepository : IOrganizationHandlerRepository
+    public class OrganizationRepository : IOrganizationRepository
     {
         private readonly OrganizationsAndDocumentsContext _context;
-        public OrganizationHandlerRepository(OrganizationsAndDocumentsContext context)
+        public OrganizationRepository(OrganizationsAndDocumentsContext context)
         {
             _context = context;
         }
@@ -27,6 +27,11 @@ namespace DocumentConverter.BusinessLogic.Classes.OrganizationHandler
         {
             var format = _context.Formats.FirstOrDefault(f => f.Name == formatName);
             return format.Id;
+        }
+        public bool FindOrganizationById(string id)
+        {
+            var organization = _context.Organizations.FirstOrDefault(o => o.Id == id);
+            return organization != null;
         }
     }
 }

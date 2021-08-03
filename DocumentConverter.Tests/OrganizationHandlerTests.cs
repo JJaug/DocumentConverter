@@ -9,13 +9,13 @@ namespace DocumentConverter.Tests
 {
     public class OrganizationHandlerTests
     {
-        private IOrganizationHandlerRepository _organizationHandlerRepository;
-        private IOrganizationHandlerService _organizationHandlerService;
+        private IOrganizationRepository _organizationHandlerRepository;
+        private IOrganizationService _organizationHandlerService;
         [SetUp]
         public void Setup()
         {
-            _organizationHandlerRepository = Substitute.For<IOrganizationHandlerRepository>();
-            _organizationHandlerService = new OrganizationHandlerService(_organizationHandlerRepository);
+            _organizationHandlerRepository = Substitute.For<IOrganizationRepository>();
+            _organizationHandlerService = new OrganizationService(_organizationHandlerRepository);
         }
 
         [Test]

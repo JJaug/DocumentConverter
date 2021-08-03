@@ -1,5 +1,8 @@
-﻿namespace DocumentConverter.Models.Models
+﻿using System.Xml.Serialization;
+
+namespace DocumentConverter.Models.Models
 {
+    [XmlRoot]
     public class Line
     {
         public int ID { get; set; }

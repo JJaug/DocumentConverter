@@ -28,13 +28,13 @@ namespace DocumentConverter.Cli
             var connectionString = Configuration.GetValue<string>("ConnectionString");
             services.AddDbContext<OrganizationsAndDocumentsContext>(options =>
             options.UseSqlServer(connectionString));
-            services.AddSingleton<IOrganizationHandlerRepository, OrganizationHandlerRepository>();
-            services.AddSingleton<IOrganizationHandlerService, OrganizationHandlerService>();
-            services.AddSingleton<IInternalFormatService, InternalFormatService>();
-            services.AddSingleton<IInternalFormatRepository, InternalFormatRepository>();
-            services.AddSingleton<IDocumentHandlerService, DocumentHandlerService>();
-            services.AddSingleton<IDocumentHandlerRepository, DocumentHandlerRepository>();
-            services.AddSingleton<IOperationsCli, OperationsCli>();
+            services.AddTransient<IOrganizationRepository, OrganizationRepository>();
+            services.AddScoped<IOrganizationService, OrganizationService>();
+            services.AddScoped<IInternalFormatService, InternalFormatService>();
+            services.AddScoped<IInternalFormatRepository, InternalFormatRepository>();
+            services.AddScoped<IDocumentHandlerService, DocumentHandlerService>();
+            services.AddScoped<IDocumentHandlerRepository, DocumentHandlerRepository>();
+            services.AddScoped<IOperationsCli, OperationsCli>();
         }
     }
 }

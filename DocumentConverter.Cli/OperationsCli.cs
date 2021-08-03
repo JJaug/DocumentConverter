@@ -1,18 +1,19 @@
 ﻿using DocumentConverter.Contracts.Interfaces;
 using DocumentConverter.Contracts.Interfaces.InternalFormat;
 using DocumentConverter.Contracts.Interfaces.OrganizationHandler;
+using DocumentConverter.Models.Models;
 using System;
 
 namespace DocumentConverter.Cli
 {
     public class OperationsCli : IOperationsCli
     {
-        private readonly IOrganizationHandlerService _organizationHandlerService;
-        private readonly IInternalFormatService _internalFormat;
-        public OperationsCli(IOrganizationHandlerService organizationHandlerService, IInternalFormatService internalFormat)
+        private readonly IOrganizationService _organizationService;
+        private readonly IInternalFormatService _internalFormatService;
+        public OperationsCli(IOrganizationService organizationService, IInternalFormatService internalFormat)
         {
-            _organizationHandlerService = organizationHandlerService;
-            _internalFormat = internalFormat;
+            _organizationService = organizationService;
+            _internalFormatService = internalFormat;
         }
         public void ExecuteProgram(int input)
         {
@@ -55,7 +56,8 @@ namespace DocumentConverter.Cli
             var format = Console.ReadLine();
             Console.WriteLine("Organization Export Path");
             var path = Console.ReadLine();
-            _organizationHandlerService.AddOrganization(id, name, format, path);
+            var organizationDto = new OrganizationDto { Id = id, Name = name, FormatName = format, ExportPath = path };
+            _organizationService.AddOrganization(organizationDto);
         }
         public void RemoveOrganization()
         {
@@ -63,13 +65,13 @@ namespace DocumentConverter.Cli
             var id = Console.ReadLine();
             Console.WriteLine("Organization Name");
             var name = Console.ReadLine();
-            _organizationHandlerService.RemoveOrganization(id, name);
+            _organizationService.RemoveOrganization(id, name);
         }
         public void ExportFile()
         {
             Console.WriteLine("Please type in document path:");
             var documentPath = Console.ReadLine();
-            if (_internalFormat.CheckIfOrganizationsInFilePathExist(documentPath))
+            if (_organizationService.CheckIfOrganizationsInFilePathExist(documentPath))
             {
 
             }

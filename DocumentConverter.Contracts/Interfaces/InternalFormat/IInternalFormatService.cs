@@ -2,6 +2,5 @@
 {
     public interface IInternalFormatService
     {
-        public bool CheckIfOrganizationsInFilePathExist(string documentPath);
     }
 }

@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DocumentConverter.EF.Core\DocumentConverter.EF.Core.csproj" />
+    <ProjectReference Include="..\DocumentConverter.Models\DocumentConverter.Models.csproj" />
   </ItemGroup>
 
 </Project>
