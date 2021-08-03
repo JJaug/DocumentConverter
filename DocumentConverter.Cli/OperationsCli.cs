@@ -56,7 +56,6 @@ namespace DocumentConverter.Cli
             Console.WriteLine("Organization Export Path");
             var path = Console.ReadLine();
             _organizationHandlerService.AddOrganization(id, name, format, path);
-            CliInformation();
         }
         public void RemoveOrganization()
         {
@@ -65,7 +64,6 @@ namespace DocumentConverter.Cli
             Console.WriteLine("Organization Name");
             var name = Console.ReadLine();
             _organizationHandlerService.RemoveOrganization(id, name);
-            CliInformation();
         }
         public void ExportFile()
         {
@@ -79,7 +77,6 @@ namespace DocumentConverter.Cli
             {
                 Console.WriteLine("Bad filepath or no organizatios");
             }
-            CliInformation();
         }
     }
 }

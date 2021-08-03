@@ -23,7 +23,7 @@ namespace DocumentConverter.BusinessLogic.Classes.InternalFormat
             }
             var senderId = order.Sender.ID;
             var receiverId = order.Receiver.ID;
-            if(_internalFormatRepository.FindOrganizationById(senderId) && _internalFormatRepository.FindOrganizationById(receiverId))
+            if (_internalFormatRepository.FindOrganizationById(senderId) && _internalFormatRepository.FindOrganizationById(receiverId))
             {
                 return true;
             }
