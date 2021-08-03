@@ -7,7 +7,8 @@ namespace DocumentConverter.Contracts.Interfaces.OrganizationHandler
         public void AddOrganization(OrganizationDto organizationDto);
         public void RemoveOrganization(string id, string name);
         public bool CheckIfOrganizationsInFilePathExist(Order order);
-        public int GetFormatType(Order order);
+        public string GetFormatType(Order order);
+        public string GetExportPath(Order order);
 
 
     }

@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
@@ -19,19 +21,21 @@ namespace DocumentConverter.EF.Core.Models
         public virtual DbSet<Format> Formats { get; set; }
         public virtual DbSet<Organization> Organizations { get; set; }
 
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
             modelBuilder.Entity<ExportedDocument>(entity =>
             {
-                entity.Property(e => e.Id).HasMaxLength(255);
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.ExportedDate).HasColumnType("smalldatetime");
 
                 entity.Property(e => e.FileName)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.OrganizationId)
                     .IsRequired()
                     .HasMaxLength(255);
 

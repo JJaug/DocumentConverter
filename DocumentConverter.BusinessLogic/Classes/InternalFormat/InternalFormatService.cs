@@ -11,13 +11,6 @@ namespace DocumentConverter.BusinessLogic.Classes.InternalFormat
         {
             _internalFormatRepository = internalFormatRepository;
         }
-        public Stream ConvertXmlFileToStream(string documentPath)
-        {
-            string xmlString = File.ReadAllText(documentPath);
-            byte[] byteArray = Encoding.ASCII.GetBytes(xmlString);
-            Stream stream = new MemoryStream(byteArray);
-            return stream;
-        }
 
     }
 }

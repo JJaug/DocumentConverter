@@ -4,7 +4,7 @@ using System.IO;
 
 namespace DocumentConverter.BusinessLogic.Classes.Converter
 {
-    public class ConverterToJson : IConverterToJson
+    public class ConvertToJson : IConverter
     {
         public Order Convert(Stream input)
         {

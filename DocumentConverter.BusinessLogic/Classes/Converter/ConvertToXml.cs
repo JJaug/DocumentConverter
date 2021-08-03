@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 namespace DocumentConverter.BusinessLogic.Classes.Converter
 {
-    public class ConverterToXml : IConverterToXml
+    public class ConvertToXml : IConverter
     {
         public Order Convert(Stream stream)
         {

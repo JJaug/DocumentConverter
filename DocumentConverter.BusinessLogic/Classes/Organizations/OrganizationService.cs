@@ -1,9 +1,10 @@
 ﻿using DocumentConverter.Contracts.Interfaces.OrganizationHandler;
+using DocumentConverter.Contracts.Interfaces.Organizations;
 using DocumentConverter.EF.Core.Models;
 using DocumentConverter.Models.Models;
 using System;
 
-namespace DocumentConverter.BusinessLogic.Classes.OrganizationHandler
+namespace DocumentConverter.BusinessLogic.Classes.Organizations
 {
     public class OrganizationService : IOrganizationService
     {
@@ -35,10 +36,15 @@ namespace DocumentConverter.BusinessLogic.Classes.OrganizationHandler
                 return false;
             }
         }
-        public int GetFormatType(Order order)
+        public string GetFormatType(Order order)
         {
             var receiverOrganizationId = order.Receiver.ID;
             return _organizationRepository.GetFormatType(receiverOrganizationId);
+        }
+        public string GetExportPath(Order order)
+        {
+            var receiverOrganizationId = order.Receiver.ID;
+            return _organizationRepository.GetOrganizationFilePath(receiverOrganizationId);
         }
     }
 }

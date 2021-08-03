@@ -1,6 +1,6 @@
 ﻿using DocumentConverter.EF.Core.Models;
 
-namespace DocumentConverter.Contracts.Interfaces.OrganizationHandler
+namespace DocumentConverter.Contracts.Interfaces.Organizations
 {
     public interface IOrganizationRepository
     {
@@ -8,7 +8,9 @@ namespace DocumentConverter.Contracts.Interfaces.OrganizationHandler
         public int GetFormatId(string formatName);
         public void DeleteFromDatabase(string id, string name);
         public bool FindOrganizationById(string id);
-        public int GetFormatType(string organizationId);
+        public string GetFormatType(string organizationId);
+        public string GetOrganizationFilePath(string organizationId);
+
 
     }
 }

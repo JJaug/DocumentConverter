@@ -1,5 +1,6 @@
-using DocumentConverter.BusinessLogic.Classes.OrganizationHandler;
+using DocumentConverter.BusinessLogic.Classes.Organizations;
 using DocumentConverter.Contracts.Interfaces.OrganizationHandler;
+using DocumentConverter.Contracts.Interfaces.Organizations;
 using DocumentConverter.EF.Core.Models;
 using NSubstitute;
 using NUnit.Framework;

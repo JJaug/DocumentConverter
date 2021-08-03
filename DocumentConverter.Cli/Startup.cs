@@ -1,12 +1,12 @@
-﻿using DocumentConverter.BusinessLogic.Classes.Converter;
+﻿using DocumentConverter.BusinessLogic.Classes;
 using DocumentConverter.BusinessLogic.Classes.DocumentHandler;
 using DocumentConverter.BusinessLogic.Classes.InternalFormat;
-using DocumentConverter.BusinessLogic.Classes.OrganizationHandler;
+using DocumentConverter.BusinessLogic.Classes.Organizations;
 using DocumentConverter.Contracts.Interfaces;
-using DocumentConverter.Contracts.Interfaces.Converter;
 using DocumentConverter.Contracts.Interfaces.DocumentHandler;
 using DocumentConverter.Contracts.Interfaces.InternalFormat;
 using DocumentConverter.Contracts.Interfaces.OrganizationHandler;
+using DocumentConverter.Contracts.Interfaces.Organizations;
 using DocumentConverter.EF.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -31,14 +31,16 @@ namespace DocumentConverter.Cli
             services.AddDbContext<OrganizationsAndDocumentsContext>(options =>
             options.UseSqlServer(connectionString));
             services.AddTransient<IOrganizationRepository, OrganizationRepository>();
-            services.AddScoped<IOrganizationService, OrganizationService>();
-            services.AddScoped<IInternalFormatService, InternalFormatService>();
-            services.AddScoped<IInternalFormatRepository, InternalFormatRepository>();
-            services.AddScoped<IDocumentHandlerService, DocumentHandlerService>();
-            services.AddScoped<IDocumentHandlerRepository, DocumentHandlerRepository>();
-            services.AddScoped<IConverterToXml, ConverterToXml>();
-            services.AddScoped<IConverterToJson, ConverterToJson>();
-            services.AddScoped<IOperationsCli, OperationsCli>();
+            services.AddTransient<IOrganizationService, OrganizationService>();
+            services.AddTransient<IInternalFormatService, InternalFormatService>();
+            services.AddTransient<IInternalFormatRepository, InternalFormatRepository>();
+            services.AddTransient<IDocumentService, DocumentService>();
+            services.AddTransient<IDocumentRepository, DocumentRepository>();
+            services.AddTransient<IDocumentRepository, DocumentRepository>();
+            services.AddTransient<IStreamService, StreamService>();
+            services.AddTransient<IDocumentService, DocumentService>();
+            services.AddTransient<IDocumentRepository, DocumentRepository>();
+            services.AddTransient<IOperationsCli, OperationsCli>();
         }
     }
 }
