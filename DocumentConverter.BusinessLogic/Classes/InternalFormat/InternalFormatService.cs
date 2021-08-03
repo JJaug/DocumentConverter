@@ -1,4 +1,7 @@
 ﻿using DocumentConverter.Contracts.Interfaces.InternalFormat;
+using DocumentConverter.Models.Models;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace DocumentConverter.BusinessLogic.Classes.InternalFormat
 {
@@ -11,8 +14,23 @@ namespace DocumentConverter.BusinessLogic.Classes.InternalFormat
         }
         public bool CheckIfOrganizationsInFilePathExist(string documentPath)
         {
+            var order = new Order();
+            XmlSerializer xs = new XmlSerializer(typeof(Order));
 
-            return true;
+            using (FileStream stream = File.Open(documentPath, FileMode.Open))
+            {
+                order = (Order)xs.Deserialize(stream);
+            }
+            var senderId = order.Sender.ID;
+            var receiverId = order.Receiver.ID;
+            if(_internalFormatRepository.FindOrganizationById(senderId) && _internalFormatRepository.FindOrganizationById(receiverId))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

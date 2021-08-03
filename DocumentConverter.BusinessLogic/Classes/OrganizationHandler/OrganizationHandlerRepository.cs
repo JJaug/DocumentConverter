@@ -17,7 +17,7 @@ namespace DocumentConverter.BusinessLogic.Classes.OrganizationHandler
             _context.SaveChanges();
         }
 
-        public void DeleteFromDatabase(int id, string name)
+        public void DeleteFromDatabase(string id, string name)
         {
             var organization = _context.Organizations.FirstOrDefault(o => o.Id == id && o.Name == name);
             _context.Organizations.Remove(organization);

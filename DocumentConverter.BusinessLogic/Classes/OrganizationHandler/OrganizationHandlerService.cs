@@ -11,13 +11,13 @@ namespace DocumentConverter.BusinessLogic.Classes.OrganizationHandler
         {
             _organizationHandlerRepository = organizationHandlerRepository;
         }
-        public void AddOrganization(string name, string format, string filePath)
+        public void AddOrganization(string id, string name, string format, string filePath)
         {
             var formatId = _organizationHandlerRepository.GetFormatId(format);
-            var organization = new Organization { Name = name, FormatId = formatId, ExportPath = filePath, CreatedDate = DateTime.Now };
+            var organization = new Organization {Id = id, Name = name, FormatId = formatId, ExportPath = filePath, CreatedDate = DateTime.Now };
             _organizationHandlerRepository.AddToDatabase(organization);
         }
-        public void RemoveOrganization(int id, string name)
+        public void RemoveOrganization(string id, string name)
         {
             _organizationHandlerRepository.DeleteFromDatabase(id, name);
         }

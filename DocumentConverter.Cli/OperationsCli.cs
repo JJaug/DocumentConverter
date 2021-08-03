@@ -19,6 +19,7 @@ namespace DocumentConverter.Cli
             switch (input)
             {
                 case 1:
+                    ExportFile();
                     break;
                 case 2:
                     break;
@@ -46,21 +47,25 @@ namespace DocumentConverter.Cli
         }
         public void AddOrganization()
         {
+            Console.WriteLine("Organization ID");
+            var id = Console.ReadLine();
             Console.WriteLine("Organization Name");
             var name = Console.ReadLine();
             Console.WriteLine("Organization Format Name");
             var format = Console.ReadLine();
             Console.WriteLine("Organization Export Path");
             var path = Console.ReadLine();
-            _organizationHandlerService.AddOrganization(name, format, path);
+            _organizationHandlerService.AddOrganization(id, name, format, path);
+            CliInformation();
         }
         public void RemoveOrganization()
         {
             Console.WriteLine("Organization Id");
-            var id = int.Parse(Console.ReadLine());
+            var id = Console.ReadLine();
             Console.WriteLine("Organization Name");
             var name = Console.ReadLine();
             _organizationHandlerService.RemoveOrganization(id, name);
+            CliInformation();
         }
         public void ExportFile()
         {

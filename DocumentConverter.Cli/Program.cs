@@ -7,6 +7,7 @@ using DocumentConverter.Contracts.Interfaces.InternalFormat;
 using DocumentConverter.Contracts.Interfaces.OrganizationHandler;
 using DocumentConverter.EF.Core.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -18,7 +19,11 @@ namespace DocumentConverter.Cli
     {
         static Task Main(string[] args)
         {
-            using IHost host = CreateHostBuilder(args).Build();
+            var builder = new ConfigurationBuilder()
+                .AddJsonFile($"appSettings.json", true, true);
+            var config = builder.Build();
+            var connectionString = config["ConnectionString"];
+            using IHost host = CreateHostBuilder(args, connectionString).Build();
             var service = host.Services;
             var cli = service.GetService<IOperationsCli>();
             Console.WriteLine("Welcome to DocumentExporter!");
@@ -38,11 +43,11 @@ namespace DocumentConverter.Cli
             return host.RunAsync();
         }
 
-        static IHostBuilder CreateHostBuilder(string[] args) =>
+        static IHostBuilder CreateHostBuilder(string[] args, string connectionString) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((_, services) =>
                             services.AddDbContext<OrganizationsAndDocumentsContext>(options =>
-                            options.UseSqlServer("Data Source=LT-LIT-SC-0597\\MSSQLSERVER01;Initial Catalog=OrganizationsAndDocuments;Integrated Security=True"))
+                            options.UseSqlServer(connectionString))
                             .AddSingleton<IOrganizationHandlerRepository, OrganizationHandlerRepository>()
                             .AddSingleton<IOrganizationHandlerService, OrganizationHandlerService>()
                             .AddSingleton<IInternalFormatService, InternalFormatService>()

@@ -1,8 +1,8 @@
 ﻿namespace DocumentConverter.Models.Models
 {
-    public class OperatorModel
+    public class Operator
     {
-        public string Id { get; set; }
+        public string ID { get; set; }
         public string Name { get; set; }
     }
 }

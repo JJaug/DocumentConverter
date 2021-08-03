@@ -11,7 +11,7 @@ namespace DocumentConverter.BusinessLogic.Classes.InternalFormat
         {
             _organizationsAndDocumentsContext = organizationsAndDocumentsContext;
         }
-        public bool FindOrganizationById(int id)
+        public bool FindOrganizationById(string id)
         {
             var organization = _organizationsAndDocumentsContext.Organizations.FirstOrDefault(o => o.Id == id);
             if (organization != null)

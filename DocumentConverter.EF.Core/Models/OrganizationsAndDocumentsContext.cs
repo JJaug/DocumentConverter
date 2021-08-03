@@ -24,7 +24,7 @@ namespace DocumentConverter.EF.Core.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=LT-LIT-SC-0597\\MSSQLSERVER01; Initial Catalog=OrganizationsAndDocuments;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Data Source=LT-LIT-SC-0597\\MSSQLSERVER01;Initial Catalog=OrganizationsAndDocuments;Integrated Security=True");
             }
         }
 
@@ -34,6 +34,8 @@ namespace DocumentConverter.EF.Core.Models
 
             modelBuilder.Entity<ExportedDocument>(entity =>
             {
+                entity.Property(e => e.Id).HasMaxLength(255);
+
                 entity.Property(e => e.ExportedDate).HasColumnType("smalldatetime");
 
                 entity.Property(e => e.FileName)
@@ -59,6 +61,8 @@ namespace DocumentConverter.EF.Core.Models
             modelBuilder.Entity<Organization>(entity =>
             {
                 entity.ToTable("Organization");
+
+                entity.Property(e => e.Id).HasMaxLength(255);
 
                 entity.Property(e => e.CreatedDate).HasColumnType("smalldatetime");
 

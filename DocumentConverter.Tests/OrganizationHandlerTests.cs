@@ -23,7 +23,7 @@ namespace DocumentConverter.Tests
         {
             var format = "JSON";
             _organizationHandlerRepository.GetFormatId(format).Returns(1);
-            var organization = new Organization { Id = 1 , Name = "TestCompany", ExportPath = "RandomPath", CreatedDate = DateTime.Now, FormatId = 1 };
+            var organization = new Organization { Id = "1", Name = "TestCompany", ExportPath = "RandomPath", CreatedDate = DateTime.Now, FormatId = 1 };
             _organizationHandlerRepository.AddToDatabase(organization);
 
             _organizationHandlerService.AddOrganization("TestCompany", format, "RandomPath");

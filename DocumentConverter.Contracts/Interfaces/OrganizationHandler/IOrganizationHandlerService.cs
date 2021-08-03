@@ -2,7 +2,7 @@
 {
     public interface IOrganizationHandlerService
     {
-        public void AddOrganization(string naem, string format, string filePath);
-        public void RemoveOrganization(int id, string name);
+        public void AddOrganization(string id, string naem, string format, string filePath);
+        public void RemoveOrganization(string id, string name);
     }
 }

@@ -6,6 +6,6 @@ namespace DocumentConverter.Contracts.Interfaces.OrganizationHandler
     {
         public void AddToDatabase(Organization organization);
         public int GetFormatId(string formatName);
-        public void DeleteFromDatabase(int id, string name);
+        public void DeleteFromDatabase(string id, string name);
     }
 }
