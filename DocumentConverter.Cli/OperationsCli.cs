@@ -52,12 +52,13 @@ namespace DocumentConverter.Cli
             Console.WriteLine("Please type in document path:");
             var documentPath = Console.ReadLine();
             var stream = _streamService.Read(documentPath);
-            var orderToGetFormatType = _streamService.GetInstanceOfOrderFromStream(stream);
-            var formatType = _organizationService.GetFormatType(orderToGetFormatType);
-            ExportFactory exportFactory = new ConcreteExportFactory();
-            ConvertFactory convertFactory = new ConcreteConvertFactory();
-            IExporter _exporter = exportFactory.GetFileType(formatType);
-            IConverter converter = convertFactory.GetFileType(formatType);
+            Console.WriteLine("Type in format type ");
+            var formatType = Console.ReadLine().ToLower();
+
+            var exportFactory = new ConcreteExportFactory();
+            var convertFactory = new ConcreteConvertFactory();
+            var exporter = exportFactory.GetFileType(formatType);
+            var converter = convertFactory.GetFileType(formatType);
             var order = converter.Convert(stream);
 
 
@@ -70,34 +71,15 @@ namespace DocumentConverter.Cli
                 Console.WriteLine($"Exporting to: {filePath}");
 
                 Console.WriteLine($"Exporting using {formatType} format");
-                switch (formatType)
+                var formatTypeStream = exporter.Export(order);
+                if (_streamService.Write(formatTypeStream, filePath))
                 {
-                    case "XML":
-                        var xmlStream = _exporter.Export(order);
-                        if (_streamService.Write(xmlStream, filePath))
-                        {
-                            _documentService.LogExportedDocumentToDatabase(order, fileName);
-                            Console.WriteLine($"Document was successfully exported! Devilvered to {filePath}");
-                        }
-                        else
-                        {
-                            Console.WriteLine("unexpected error occured.");
-                        }
-                        break;
-                    case "JSON":
-                        var jsonStream = _exporter.Export(order);
-                        if (_streamService.Write(jsonStream, filePath))
-                        {
-                            _documentService.LogExportedDocumentToDatabase(order, fileName);
-                            Console.WriteLine($"Document was successfully exported! Devilvered to {filePath}");
-                        }
-                        else
-                        {
-                            Console.WriteLine("unexpected error occured.");
-                        }
-                        break;
-                    default:
-                        break;
+                    _documentService.LogExportedDocumentToDatabase(order, fileName);
+                    Console.WriteLine($"Document was successfully exported! Devilvered to {filePath}");
+                }
+                else
+                {
+                    Console.WriteLine("unexpected error occured.");
                 }
             }
             else
