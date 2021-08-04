@@ -32,6 +32,7 @@ namespace DocumentConverter.Cli
                     ExportFile();
                     break;
                 case 2:
+                    CheckFiles();
                     break;
                 case 3:
                     AddOrganization();
@@ -46,14 +47,69 @@ namespace DocumentConverter.Cli
                     break;
             }
         }
-        public void CliInformation()
+        public void ExportFile()
         {
-            Console.WriteLine("Type in the number");
-            Console.WriteLine("1. Export file");
-            Console.WriteLine("2. Check files");
-            Console.WriteLine("3. Add organization");
-            Console.WriteLine("4. Remove organization");
-            Console.WriteLine("5. Exit");
+            Console.WriteLine("Please type in document path:");
+            var documentPath = Console.ReadLine();
+            var stream = _streamService.Read(documentPath);
+            var orderToGetFormatType = _streamService.GetInstanceOfOrderFromStream(stream);
+            var formatType = _organizationService.GetFormatType(orderToGetFormatType);
+            ExportFactory exportFactory = new ConcreteExportFactory();
+            ConvertFactory convertFactory = new ConcreteConvertFactory();
+            IExporter _exporter = exportFactory.GetFileType(formatType); 
+            IConverter converter = convertFactory.GetFileType(formatType);
+            var order = converter.Convert(stream);
+
+
+            if (_organizationService.CheckIfOrganizationsInFilePathExist(order))
+            {
+                Console.WriteLine($"Receiving organization ID {order.Receiver.ID}");
+                var folderPath = _organizationService.GetExportPath(order);
+                var fileName = $"{DateTime.Now}_exported_{order.Name}.{formatType.ToLower()}";
+                var filePath = Path.Combine(folderPath, fileName);
+                Console.WriteLine($"Exporting to: {filePath}");
+
+                Console.WriteLine($"Exporting using {formatType} format");
+                switch (formatType)
+                {
+                    case "XML":
+                        var xmlStream = _exporter.Export(order);
+                        if(_streamService.Write(xmlStream, filePath))
+                        {
+                            _documentService.LogExportedDocumentToDatabase(order, fileName);
+                            Console.WriteLine($"Document was successfully exported! Devilvered to {filePath}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("unexpected error occured.");
+                        }
+                        break;
+                    case "JSON":
+                        var jsonStream = _exporter.Export(order);
+                            if (_streamService.Write(jsonStream, filePath))
+                            {
+                                _documentService.LogExportedDocumentToDatabase(order, fileName);
+                                Console.WriteLine($"Document was successfully exported! Devilvered to {filePath}");
+                            }
+                            else
+                            {
+                                Console.WriteLine("unexpected error occured.");
+                            }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Bad filepath or no organizatios");
+            }
+        }
+        public void CheckFiles()
+        {
+            Console.WriteLine("Please type in ID of organization you want to see exported files log of:");
+            var organizationId = Console.ReadLine();
+            _documentService.GetExportedDocumentsInfo(organizationId);
         }
         public void AddOrganization()
         {
@@ -76,51 +132,14 @@ namespace DocumentConverter.Cli
             var name = Console.ReadLine();
             _organizationService.RemoveOrganization(id, name);
         }
-        public void ExportFile()
+        public void CliInformation()
         {
-            Console.WriteLine("Please type in document path:");
-            var documentPath = Console.ReadLine();
-            ExportFactory exportFactory = new ConcreteExportFactory();
-            IExporter _exportAsXml = exportFactory.GetFileType(2); 
-            ConvertFactory convertFactory = new ConcreteConvertFactory();
-            IConverter convertToXml = convertFactory.GetFileType(2);
-            var stream = _streamService.Read(documentPath);
-            var order = convertToXml.Convert(stream);
-
-
-            if (_organizationService.CheckIfOrganizationsInFilePathExist(order))
-            {
-                Console.WriteLine($"Receiving organization ID {order.Receiver.ID}");
-                var folderPath = _organizationService.GetExportPath(order);
-                var fileName = $"{DateTime.Now}_exported_{order.Name}.xml";
-                var filePath = Path.Combine(folderPath, fileName);
-                Console.WriteLine($"Exporting to: {filePath}");
-                var formatType = _organizationService.GetFormatType(order);
-                Console.WriteLine($"Exporting using {formatType} format");
-                switch (formatType)
-                {
-                    case "XML":
-                        var xmlStream = _exportAsXml.Export(order);
-                        if(_streamService.Write(xmlStream, filePath))
-                        {
-                            _documentService.LogExportedDocumentToDatabase(order, fileName);
-                            Console.WriteLine($"Document was successfully exported! Devilvered to {filePath}");
-                        }
-                        else
-                        {
-                            Console.WriteLine("unexpected error occured.");
-                        }
-                        break;
-                    case "JSON":
-
-                    default:
-                        break;
-                }
-            }
-            else
-            {
-                Console.WriteLine("Bad filepath or no organizatios");
-            }
+            Console.WriteLine("Type in the number");
+            Console.WriteLine("1. Export file");
+            Console.WriteLine("2. Check files");
+            Console.WriteLine("3. Add organization");
+            Console.WriteLine("4. Remove organization");
+            Console.WriteLine("5. Exit");
         }
     }
 }

@@ -35,7 +35,9 @@ namespace DocumentConverter.BusinessLogic.Classes.Organizations
         }
         public string GetFormatType(string organizationId)
         {
-            return _context.Organizations.FirstOrDefault(o => o.Id == organizationId).Format.Name;
+            var formatId = _context.Organizations.FirstOrDefault(o => o.Id == organizationId).FormatId;
+            return _context.Formats.FirstOrDefault(f => f.Id == formatId).Name;
+           
         }
         public string GetOrganizationFilePath(string organizationId)
         {

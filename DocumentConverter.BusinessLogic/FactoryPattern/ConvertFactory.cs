@@ -10,18 +10,18 @@ namespace DocumentConverter.BusinessLogic.FactoryPattern
 {
     public abstract class ConvertFactory
     {
-        public abstract IConverter GetFileType(int fileType);
+        public abstract IConverter GetFileType(string fileType);
     }
 
     public class ConcreteConvertFactory : ConvertFactory
     {
-        public override IConverter GetFileType(int fileType)
+        public override IConverter GetFileType(string fileType)
         {
             switch (fileType)
             {
-                case 1:
+                case "JSON":
                     return new ConvertToJson();
-                case 2:
+                case "XML":
                     return new ConvertToXml();
                 default:
                     throw new ApplicationException(string.Format("Error"));

@@ -2,6 +2,7 @@
 using DocumentConverter.Contracts.Interfaces.Organizations;
 using DocumentConverter.Models.Models;
 using System;
+using System.Collections.Generic;
 
 namespace DocumentConverter.BusinessLogic.Classes.DocumentHandler
 {
@@ -19,6 +20,14 @@ namespace DocumentConverter.BusinessLogic.Classes.DocumentHandler
             var formatId = _organizationRepository.GetFormatId(_organizationRepository.GetFormatType(order.Sender.ID));
             var documentDto = new ExportedDocumentsDto { OrganizationId = order.Sender.ID, FormatId = formatId, FileName = fileName, ExportedDate = DateTime.Now };
             _documentRepository.AddExportedDocumentLogToDatabase(documentDto);
+        }
+        public void GetExportedDocumentsInfo(string organizationId)
+        {
+            var exportedDocuments = _documentRepository.GetExportedDocumentsByOrganizationId(organizationId);
+            foreach(var document in exportedDocuments)
+            {
+                Console.WriteLine($"Document ID: {document.Id}, Organization ID: {document.OrganizationId}, Format ID: {document.FormatId}, File Name: {document.FileName}, Exported Date: {document.ExportedDate}");
+            }
         }
     }
 }

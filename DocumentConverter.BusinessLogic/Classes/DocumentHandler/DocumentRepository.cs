@@ -1,6 +1,8 @@
 ﻿using DocumentConverter.Contracts.Interfaces.DocumentHandler;
 using DocumentConverter.EF.Core.Models;
 using DocumentConverter.Models.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DocumentConverter.BusinessLogic.Classes.DocumentHandler
 {
@@ -15,6 +17,10 @@ namespace DocumentConverter.BusinessLogic.Classes.DocumentHandler
         {
             var exportedDocument = new ExportedDocument { OrganizationId = documentDto.OrganizationId, FormatId = documentDto.FormatId, FileName = documentDto.FileName, ExportedDate = documentDto.ExportedDate };
             _context.ExportedDocuments.Add(exportedDocument);
+        }
+        public List<ExportedDocument> GetExportedDocumentsByOrganizationId(string organizationId)
+        {
+            return _context.ExportedDocuments.Where(e => e.OrganizationId == organizationId).ToList();
         }
     }
 }
