@@ -20,19 +20,19 @@ namespace DocumentConverter.Cli
                 cli.CliInformation();
                 var command = Console.ReadLine();
                 int input;
-                try
+                var isCommandNumber = Int32.TryParse(command, out input);
+                if (isCommandNumber)
                 {
-                    input = int.Parse(command);
                     cli.ExecuteProgram(input);
-                    if (input == 5)
-                    {
-                        Console.WriteLine("Bye bye!");
-                        break;
-                    }
                 }
-                catch
+                else
                 {
-                    Console.WriteLine("Type in a number, no decimals or letters");
+                    Console.WriteLine("Dont type in letters or decimals!");
+                }
+                if (input == 5)
+                {
+                    Console.WriteLine("Bye bye!");
+                    break;
                 }
             }
         }

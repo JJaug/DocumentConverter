@@ -1,6 +1,5 @@
 ﻿using DocumentConverter.BusinessLogic.FactoryPattern;
 using DocumentConverter.Contracts.Interfaces;
-using DocumentConverter.Contracts.Interfaces.Converter;
 using DocumentConverter.Contracts.Interfaces.DocumentHandler;
 using DocumentConverter.Contracts.Interfaces.InternalFormat;
 using DocumentConverter.Contracts.Interfaces.OrganizationHandler;
@@ -13,14 +12,16 @@ namespace DocumentConverter.Cli
     public class OperationsCli : IOperationsCli
     {
         private readonly IOrganizationService _organizationService;
-        private readonly IInternalFormatService _internalFormatService;
+        private readonly IExportFactory _exportFactory;
+        private readonly IConvertFactory _convertFactory;
         private readonly IStreamService _streamService;
         private readonly IDocumentService _documentService;
 
-        public OperationsCli(IOrganizationService organizationService, IInternalFormatService internalFormat, IStreamService streamService, IDocumentService documentService)
+        public OperationsCli(IOrganizationService organizationService, IInternalFormatService internalFormat, IStreamService streamService, IDocumentService documentService, IExportFactory exportFactory, IConvertFactory convertFactory)
         {
             _organizationService = organizationService;
-            _internalFormatService = internalFormat;
+            _convertFactory = convertFactory;
+            _exportFactory = exportFactory;
             _streamService = streamService;
             _documentService = documentService;
         }
@@ -53,12 +54,9 @@ namespace DocumentConverter.Cli
             var documentPath = Console.ReadLine();
             var stream = _streamService.Read(documentPath);
             Console.WriteLine("Type in format type ");
-            var formatType = Console.ReadLine().ToLower();
+            var formatType = Console.ReadLine().ToUpper();
 
-            var exportFactory = new ConcreteExportFactory();
-            var convertFactory = new ConcreteConvertFactory();
-            var exporter = exportFactory.GetFileType(formatType);
-            var converter = convertFactory.GetFileType(formatType);
+            var converter = _convertFactory.GetFileType(formatType);
             var order = converter.Convert(stream);
 
 
@@ -66,11 +64,12 @@ namespace DocumentConverter.Cli
             {
                 Console.WriteLine($"Receiving organization ID {order.Receiver.ID}");
                 var folderPath = _organizationService.GetExportPath(order);
-                var fileName = $"{DateTime.Now}_exported_{order.Name}.{formatType.ToLower()}";
+                var receiverFormatType = _organizationService.GetFormatType(order);
+                var exporter = _exportFactory.GetFileType(receiverFormatType);
+                var fileName = $"_exported_{order.Name}.{receiverFormatType.ToLower()}";
                 var filePath = Path.Combine(folderPath, fileName);
                 Console.WriteLine($"Exporting to: {filePath}");
-
-                Console.WriteLine($"Exporting using {formatType} format");
+                Console.WriteLine($"Exporting using {receiverFormatType} format");
                 var formatTypeStream = exporter.Export(order);
                 if (_streamService.Write(formatTypeStream, filePath))
                 {
@@ -91,7 +90,7 @@ namespace DocumentConverter.Cli
         {
             Console.WriteLine("Please type in ID of organization you want to see exported files log of:");
             var organizationId = Console.ReadLine();
-            _documentService.GetExportedDocumentsInfo(organizationId);
+            Console.WriteLine(_documentService.GetExportedDocumentsInfo(organizationId));
         }
         public void AddOrganization()
         {

@@ -20,19 +20,21 @@ namespace DocumentConverter.BusinessLogic.Classes.DocumentHandler
             var documentDto = new ExportedDocumentsDto { OrganizationId = order.Sender.ID, FormatId = formatId, FileName = fileName, ExportedDate = DateTime.Now };
             _documentRepository.AddExportedDocumentLogToDatabase(documentDto);
         }
-        public void GetExportedDocumentsInfo(string organizationId)
+        public string GetExportedDocumentsInfo(string organizationId)
         {
             try
             {
+                var stringOfExportedDocuments = string.Empty;
                 var exportedDocuments = _documentRepository.GetExportedDocumentsByOrganizationId(organizationId);
                 foreach (var document in exportedDocuments)
                 {
-                    Console.WriteLine($"Document ID: {document.Id}, Organization ID: {document.OrganizationId}, Format ID: {document.FormatId}, File Name: {document.FileName}, Exported Date: {document.ExportedDate}");
+                    stringOfExportedDocuments += $"Document ID: {document.Id}, Organization ID: {document.OrganizationId}, Format ID: {document.FormatId}, File Name: {document.FileName}, Exported Date: {document.ExportedDate}\n";
                 }
+                return stringOfExportedDocuments;
             }
             catch
             {
-                Console.WriteLine("Wrong organization ID, or organization has no exported documents.");
+                return "Wrong organization ID, or organization has no exported documents.";
             }
 
         }

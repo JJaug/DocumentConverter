@@ -5,14 +5,13 @@ using System;
 namespace DocumentConverter.BusinessLogic.FactoryPattern
 {
 
-    public abstract class ExportFactory
+    public interface IExportFactory
     {
-        public abstract IExporter GetFileType(string fileType);
+        public IExporter GetFileType(string fileType);
     }
-
-    public class ConcreteExportFactory : ExportFactory
+    public class ExportFactory : IExportFactory
     {
-        public override IExporter GetFileType(string fileType)
+        public IExporter GetFileType(string fileType)
         {
             switch (fileType)
             {
@@ -24,7 +23,6 @@ namespace DocumentConverter.BusinessLogic.FactoryPattern
                     throw new ApplicationException(string.Format("Error"));
             }
         }
-
     }
 
 }

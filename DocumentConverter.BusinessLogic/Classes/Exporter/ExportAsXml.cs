@@ -12,10 +12,10 @@ namespace DocumentConverter.BusinessLogic.Classes.Exporter
     {
         public Stream Export(Order order)
         {
-            XmlSerializer xsSubmit = new XmlSerializer(typeof(Order));
+            XmlSerializer xs = new XmlSerializer(typeof(Order));
             using var stringWriter = new StringWriter();
             using (XmlWriter writer = XmlWriter.Create(stringWriter))
-                xsSubmit.Serialize(writer, order);
+                xs.Serialize(writer, order);
             var xmlString = stringWriter.ToString();
             byte[] byteArray = Encoding.ASCII.GetBytes(xmlString);
             Stream stream = new MemoryStream(byteArray);

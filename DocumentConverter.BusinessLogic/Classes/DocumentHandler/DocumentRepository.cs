@@ -17,6 +17,7 @@ namespace DocumentConverter.BusinessLogic.Classes.DocumentHandler
         {
             var exportedDocument = new ExportedDocument { OrganizationId = documentDto.OrganizationId, FormatId = documentDto.FormatId, FileName = documentDto.FileName, ExportedDate = documentDto.ExportedDate };
             _context.ExportedDocuments.Add(exportedDocument);
+            _context.SaveChanges();
         }
         public List<ExportedDocument> GetExportedDocumentsByOrganizationId(string organizationId)
         {

@@ -4,14 +4,13 @@ using System;
 
 namespace DocumentConverter.BusinessLogic.FactoryPattern
 {
-    public abstract class ConvertFactory
+    public interface IConvertFactory
     {
-        public abstract IConverter GetFileType(string fileType);
+        public IConverter GetFileType(string fileType);
     }
-
-    public class ConcreteConvertFactory : ConvertFactory
+    public class ConvertFactory : IConvertFactory
     {
-        public override IConverter GetFileType(string fileType)
+        public IConverter GetFileType(string fileType)
         {
             switch (fileType)
             {
@@ -23,6 +22,5 @@ namespace DocumentConverter.BusinessLogic.FactoryPattern
                     throw new ApplicationException(string.Format("Error"));
             }
         }
-
     }
 }

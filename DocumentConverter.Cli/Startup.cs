@@ -2,6 +2,7 @@
 using DocumentConverter.BusinessLogic.Classes.DocumentHandler;
 using DocumentConverter.BusinessLogic.Classes.InternalFormat;
 using DocumentConverter.BusinessLogic.Classes.Organizations;
+using DocumentConverter.BusinessLogic.FactoryPattern;
 using DocumentConverter.Contracts.Interfaces;
 using DocumentConverter.Contracts.Interfaces.DocumentHandler;
 using DocumentConverter.Contracts.Interfaces.InternalFormat;
@@ -40,6 +41,8 @@ namespace DocumentConverter.Cli
             services.AddTransient<IStreamService, StreamService>();
             services.AddTransient<IDocumentService, DocumentService>();
             services.AddTransient<IDocumentRepository, DocumentRepository>();
+            services.AddTransient<IConvertFactory, ConvertFactory>();
+            services.AddTransient<IExportFactory, ExportFactory>();
             services.AddTransient<IOperationsCli, OperationsCli>();
         }
     }

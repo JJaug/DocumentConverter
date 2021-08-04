@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-16"?>
+<Order xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<ID>2</ID>
+	<Name>Groceries</Name>
+	<Date>2021-06-30 09:12:55.0</Date>
+	<Note>Be extra careful</Note>
+	<Sender>
+		<ID>546545</ID>
+		<Operator>
+			<ID>1115468</ID>
+			<Name>AB Example</Name>
+		</Operator>
+	</Sender>
+	<Receiver>
+		<ID>3997542</ID>
+	</Receiver>
+	<Line>
+		<Line>
+			<ID>1</ID>
+			<Name>Apples</Name>
+			<Quantity>
+				<QuantityCount>2.5</QuantityCount>
+				<QuantityCode>KG</QuantityCode>
+			</Quantity>
+			<Item>
+				<Weight xsi:nil="true"/>
+				<AdditionalItemProperty>
+					<AdditionalItemProperty>
+						<Name>Color</Name>
+						<Value>Green</Value>
+					</AdditionalItemProperty>
+					<AdditionalItemProperty>
+						<Name>Production country</Name>
+						<Value>Lithuania</Value>
+					</AdditionalItemProperty>
+				</AdditionalItemProperty>
+			</Item>
+		</Line>
+	</Line>
+</Order>
