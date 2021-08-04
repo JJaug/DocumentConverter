@@ -56,7 +56,7 @@ namespace DocumentConverter.Cli
             var formatType = _organizationService.GetFormatType(orderToGetFormatType);
             ExportFactory exportFactory = new ConcreteExportFactory();
             ConvertFactory convertFactory = new ConcreteConvertFactory();
-            IExporter _exporter = exportFactory.GetFileType(formatType); 
+            IExporter _exporter = exportFactory.GetFileType(formatType);
             IConverter converter = convertFactory.GetFileType(formatType);
             var order = converter.Convert(stream);
 
@@ -74,7 +74,7 @@ namespace DocumentConverter.Cli
                 {
                     case "XML":
                         var xmlStream = _exporter.Export(order);
-                        if(_streamService.Write(xmlStream, filePath))
+                        if (_streamService.Write(xmlStream, filePath))
                         {
                             _documentService.LogExportedDocumentToDatabase(order, fileName);
                             Console.WriteLine($"Document was successfully exported! Devilvered to {filePath}");
@@ -86,15 +86,15 @@ namespace DocumentConverter.Cli
                         break;
                     case "JSON":
                         var jsonStream = _exporter.Export(order);
-                            if (_streamService.Write(jsonStream, filePath))
-                            {
-                                _documentService.LogExportedDocumentToDatabase(order, fileName);
-                                Console.WriteLine($"Document was successfully exported! Devilvered to {filePath}");
-                            }
-                            else
-                            {
-                                Console.WriteLine("unexpected error occured.");
-                            }
+                        if (_streamService.Write(jsonStream, filePath))
+                        {
+                            _documentService.LogExportedDocumentToDatabase(order, fileName);
+                            Console.WriteLine($"Document was successfully exported! Devilvered to {filePath}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("unexpected error occured.");
+                        }
                         break;
                     default:
                         break;

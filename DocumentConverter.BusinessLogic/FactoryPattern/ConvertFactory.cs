@@ -1,10 +1,6 @@
 ﻿using DocumentConverter.BusinessLogic.Classes.Converter;
 using DocumentConverter.Contracts.Interfaces.Converter;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DocumentConverter.BusinessLogic.FactoryPattern
 {

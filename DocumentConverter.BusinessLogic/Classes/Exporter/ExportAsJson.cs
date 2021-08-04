@@ -1,6 +1,5 @@
 ﻿using DocumentConverter.Contracts.Interfaces;
 using DocumentConverter.Models.Models;
-using System;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;

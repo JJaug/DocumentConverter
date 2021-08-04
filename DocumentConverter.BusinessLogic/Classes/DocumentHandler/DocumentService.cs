@@ -2,7 +2,6 @@
 using DocumentConverter.Contracts.Interfaces.Organizations;
 using DocumentConverter.Models.Models;
 using System;
-using System.Collections.Generic;
 
 namespace DocumentConverter.BusinessLogic.Classes.DocumentHandler
 {
@@ -24,7 +23,7 @@ namespace DocumentConverter.BusinessLogic.Classes.DocumentHandler
         public void GetExportedDocumentsInfo(string organizationId)
         {
             var exportedDocuments = _documentRepository.GetExportedDocumentsByOrganizationId(organizationId);
-            foreach(var document in exportedDocuments)
+            foreach (var document in exportedDocuments)
             {
                 Console.WriteLine($"Document ID: {document.Id}, Organization ID: {document.OrganizationId}, Format ID: {document.FormatId}, File Name: {document.FileName}, Exported Date: {document.ExportedDate}");
             }

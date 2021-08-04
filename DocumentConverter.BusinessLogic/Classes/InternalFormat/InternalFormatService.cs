@@ -1,6 +1,4 @@
 ﻿using DocumentConverter.Contracts.Interfaces.InternalFormat;
-using System.IO;
-using System.Text;
 
 namespace DocumentConverter.BusinessLogic.Classes.InternalFormat
 {
