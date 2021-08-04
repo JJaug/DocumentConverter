@@ -1,7 +1,6 @@
 ﻿using DocumentConverter.BusinessLogic.FactoryPattern;
 using DocumentConverter.Contracts.Interfaces;
 using DocumentConverter.Contracts.Interfaces.DocumentHandler;
-using DocumentConverter.Contracts.Interfaces.InternalFormat;
 using DocumentConverter.Contracts.Interfaces.OrganizationHandler;
 using DocumentConverter.Models.Models;
 using System;
@@ -17,7 +16,7 @@ namespace DocumentConverter.Cli
         private readonly IStreamService _streamService;
         private readonly IDocumentService _documentService;
 
-        public OperationsCli(IOrganizationService organizationService, IInternalFormatService internalFormat, IStreamService streamService, IDocumentService documentService, IExportFactory exportFactory, IConvertFactory convertFactory)
+        public OperationsCli(IOrganizationService organizationService, IStreamService streamService, IDocumentService documentService, IExportFactory exportFactory, IConvertFactory convertFactory)
         {
             _organizationService = organizationService;
             _convertFactory = convertFactory;

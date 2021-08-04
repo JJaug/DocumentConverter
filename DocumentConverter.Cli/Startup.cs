@@ -1,11 +1,9 @@
 ﻿using DocumentConverter.BusinessLogic.Classes;
 using DocumentConverter.BusinessLogic.Classes.DocumentHandler;
-using DocumentConverter.BusinessLogic.Classes.InternalFormat;
 using DocumentConverter.BusinessLogic.Classes.Organizations;
 using DocumentConverter.BusinessLogic.FactoryPattern;
 using DocumentConverter.Contracts.Interfaces;
 using DocumentConverter.Contracts.Interfaces.DocumentHandler;
-using DocumentConverter.Contracts.Interfaces.InternalFormat;
 using DocumentConverter.Contracts.Interfaces.OrganizationHandler;
 using DocumentConverter.Contracts.Interfaces.Organizations;
 using DocumentConverter.EF.Core.Models;
@@ -33,8 +31,6 @@ namespace DocumentConverter.Cli
             options.UseSqlServer(connectionString));
             services.AddTransient<IOrganizationRepository, OrganizationRepository>();
             services.AddTransient<IOrganizationService, OrganizationService>();
-            services.AddTransient<IInternalFormatService, InternalFormatService>();
-            services.AddTransient<IInternalFormatRepository, InternalFormatRepository>();
             services.AddTransient<IDocumentService, DocumentService>();
             services.AddTransient<IDocumentRepository, DocumentRepository>();
             services.AddTransient<IDocumentRepository, DocumentRepository>();

@@ -19,6 +19,7 @@ namespace DocumentConverter.BusinessLogic.FactoryPattern
                     return new ExportAsJson();
                 case "XML":
                     return new ExportAsXml();
+
                 default:
                     throw new ApplicationException(string.Format("Error"));
             }
