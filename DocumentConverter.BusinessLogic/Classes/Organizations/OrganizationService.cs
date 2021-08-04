@@ -15,9 +15,18 @@ namespace DocumentConverter.BusinessLogic.Classes.Organizations
         }
         public void AddOrganization(OrganizationDto organizationDto)
         {
-            var formatId = _organizationRepository.GetFormatId(organizationDto.FormatName);
+            int formatId = 0;
+            try
+            {
+                formatId = _organizationRepository.GetFormatId(organizationDto.FormatName);
+            }
+            catch
+            {
+                Console.WriteLine("Bad format name, maybe there was a typo.");
+            }
             var organization = new Organization { Id = organizationDto.Id, Name = organizationDto.Name, FormatId = formatId, ExportPath = organizationDto.ExportPath, CreatedDate = DateTime.Now };
             _organizationRepository.AddToDatabase(organization);
+
         }
         public void RemoveOrganization(string id, string name)
         {

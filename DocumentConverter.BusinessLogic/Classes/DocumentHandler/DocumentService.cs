@@ -22,11 +22,19 @@ namespace DocumentConverter.BusinessLogic.Classes.DocumentHandler
         }
         public void GetExportedDocumentsInfo(string organizationId)
         {
-            var exportedDocuments = _documentRepository.GetExportedDocumentsByOrganizationId(organizationId);
-            foreach (var document in exportedDocuments)
+            try
             {
-                Console.WriteLine($"Document ID: {document.Id}, Organization ID: {document.OrganizationId}, Format ID: {document.FormatId}, File Name: {document.FileName}, Exported Date: {document.ExportedDate}");
+                var exportedDocuments = _documentRepository.GetExportedDocumentsByOrganizationId(organizationId);
+                foreach (var document in exportedDocuments)
+                {
+                    Console.WriteLine($"Document ID: {document.Id}, Organization ID: {document.OrganizationId}, Format ID: {document.FormatId}, File Name: {document.FileName}, Exported Date: {document.ExportedDate}");
+                }
             }
+            catch
+            {
+                Console.WriteLine("Wrong organization ID, or organization has no exported documents.");
+            }
+
         }
     }
 }

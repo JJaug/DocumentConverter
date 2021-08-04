@@ -43,7 +43,7 @@ namespace DocumentConverter.Cli
                 case 5:
                     break;
                 default:
-                    Console.WriteLine("Wrong input value.");
+                    Console.WriteLine("Type in number from 1 to 5.");
                     break;
             }
         }
@@ -122,7 +122,14 @@ namespace DocumentConverter.Cli
             Console.WriteLine("Organization Export Path");
             var path = Console.ReadLine();
             var organizationDto = new OrganizationDto { Id = id, Name = name, FormatName = format, ExportPath = path };
-            _organizationService.AddOrganization(organizationDto);
+            try
+            {
+                _organizationService.AddOrganization(organizationDto);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
         public void RemoveOrganization()
         {
@@ -130,7 +137,14 @@ namespace DocumentConverter.Cli
             var id = Console.ReadLine();
             Console.WriteLine("Organization Name");
             var name = Console.ReadLine();
-            _organizationService.RemoveOrganization(id, name);
+            try
+            {
+                _organizationService.RemoveOrganization(id, name);
+            }
+            catch
+            {
+                Console.WriteLine("Wrong organization ID or Name");
+            }
         }
         public void CliInformation()
         {
