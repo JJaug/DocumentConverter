@@ -13,7 +13,7 @@ namespace DocumentConverter.BusinessLogic.Classes.Organizations
         {
             _organizationRepository = organizationRepository;
         }
-        public void AddOrganization(OrganizationDto organizationDto)
+        public bool AddOrganization(OrganizationDto organizationDto)
         {
             int formatId = 0;
             try
@@ -26,11 +26,13 @@ namespace DocumentConverter.BusinessLogic.Classes.Organizations
             }
             var organization = new Organization { Id = organizationDto.Id, Name = organizationDto.Name, FormatId = formatId, ExportPath = organizationDto.ExportPath, CreatedDate = DateTime.Now };
             _organizationRepository.AddToDatabase(organization);
+            return true;
 
         }
-        public void RemoveOrganization(string id, string name)
+        public bool RemoveOrganization(string id, string name)
         {
             _organizationRepository.DeleteFromDatabase(id, name);
+            return true;
         }
         public bool CheckIfOrganizationsInFilePathExist(Order order)
         {

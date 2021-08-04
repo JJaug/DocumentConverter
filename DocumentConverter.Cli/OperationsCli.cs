@@ -104,7 +104,14 @@ namespace DocumentConverter.Cli
             var organizationDto = new OrganizationDto { Id = id, Name = name, FormatName = format, ExportPath = path };
             try
             {
-                _organizationService.AddOrganization(organizationDto);
+                if(_organizationService.AddOrganization(organizationDto))
+                {
+                    Console.WriteLine("Organization was added successfuly!");
+                }
+                else
+                {
+                    Console.WriteLine("There seems to be a problem, try again.");
+                }
             }
             catch (Exception e)
             {
@@ -119,7 +126,14 @@ namespace DocumentConverter.Cli
             var name = Console.ReadLine();
             try
             {
-                _organizationService.RemoveOrganization(id, name);
+                if(_organizationService.RemoveOrganization(id, name))
+                {
+                    Console.WriteLine("Organization has been removed.");
+                }
+                else
+                {
+                    Console.WriteLine("Organization could not be removed.");
+                }
             }
             catch
             {
