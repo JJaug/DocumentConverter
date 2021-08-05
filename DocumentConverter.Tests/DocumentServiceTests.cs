@@ -1,5 +1,5 @@
-﻿using DocumentConverter.BusinessLogic.Classes.DocumentHandler;
-using DocumentConverter.Contracts.Interfaces.DocumentHandler;
+﻿using DocumentConverter.BusinessLogic.Classes.Documents;
+using DocumentConverter.Contracts.Interfaces.Documents;
 using DocumentConverter.Contracts.Interfaces.Organizations;
 using DocumentConverter.Tests.TestData;
 using NSubstitute;

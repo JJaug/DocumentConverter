@@ -1,10 +1,9 @@
 ﻿using DocumentConverter.BusinessLogic.Classes;
-using DocumentConverter.BusinessLogic.Classes.DocumentHandler;
+using DocumentConverter.BusinessLogic.Classes.Documents;
 using DocumentConverter.BusinessLogic.Classes.Organizations;
 using DocumentConverter.BusinessLogic.FactoryPattern;
 using DocumentConverter.Contracts.Interfaces;
-using DocumentConverter.Contracts.Interfaces.DocumentHandler;
-using DocumentConverter.Contracts.Interfaces.OrganizationHandler;
+using DocumentConverter.Contracts.Interfaces.Documents;
 using DocumentConverter.Contracts.Interfaces.Organizations;
 using DocumentConverter.EF.Core.Models;
 using Microsoft.EntityFrameworkCore;

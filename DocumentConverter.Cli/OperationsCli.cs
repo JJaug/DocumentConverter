@@ -1,7 +1,7 @@
 ﻿using DocumentConverter.BusinessLogic.FactoryPattern;
 using DocumentConverter.Contracts.Interfaces;
-using DocumentConverter.Contracts.Interfaces.DocumentHandler;
-using DocumentConverter.Contracts.Interfaces.OrganizationHandler;
+using DocumentConverter.Contracts.Interfaces.Documents;
+using DocumentConverter.Contracts.Interfaces.Organizations;
 using DocumentConverter.Models.Models;
 using System;
 using System.IO;
@@ -29,7 +29,7 @@ namespace DocumentConverter.Cli
             switch (input)
             {
                 case 1:
-                    ExportFile();
+                    Console.WriteLine(ExportFile());
                     break;
                 case 2:
                     CheckFiles();
@@ -47,7 +47,7 @@ namespace DocumentConverter.Cli
                     break;
             }
         }
-        public void ExportFile()
+        public string ExportFile()
         {
             Console.WriteLine("Please type in document path:");
             var documentPath = Console.ReadLine();
@@ -73,16 +73,16 @@ namespace DocumentConverter.Cli
                 if (_streamService.Write(formatTypeStream, filePath))
                 {
                     _documentService.LogExportedDocumentToDatabase(order, fileName);
-                    Console.WriteLine($"Document was successfully exported! Devilvered to {filePath}");
+                    return $"Document was successfully exported! Devilvered to {filePath}";
                 }
                 else
                 {
-                    Console.WriteLine("unexpected error occured.");
+                    return "unexpected error occured.";
                 }
             }
             else
             {
-                Console.WriteLine("Bad filepath or no organizatios");
+                return "Bad filepath or no organizatios";
             }
         }
         public void CheckFiles()

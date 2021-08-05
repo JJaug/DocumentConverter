@@ -1,5 +1,4 @@
-﻿using DocumentConverter.Contracts.Interfaces.OrganizationHandler;
-using DocumentConverter.Contracts.Interfaces.Organizations;
+﻿using DocumentConverter.Contracts.Interfaces.Organizations;
 using DocumentConverter.EF.Core.Models;
 using DocumentConverter.Models.Models;
 using System;

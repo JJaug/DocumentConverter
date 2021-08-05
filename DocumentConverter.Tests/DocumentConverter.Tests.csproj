@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DocumentConverter.BusinessLogic\DocumentConverter.BusinessLogic.csproj" />
+    <ProjectReference Include="..\DocumentConverter.Cli\DocumentConverter.Cli.csproj" />
     <ProjectReference Include="..\DocumentConverter.Contracts\DocumentConverter.Contracts.csproj" />
   </ItemGroup>
 

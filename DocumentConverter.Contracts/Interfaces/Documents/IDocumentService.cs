@@ -1,6 +1,6 @@
 ﻿using DocumentConverter.Models.Models;
 
-namespace DocumentConverter.Contracts.Interfaces.DocumentHandler
+namespace DocumentConverter.Contracts.Interfaces.Documents
 {
     public interface IDocumentService
     {

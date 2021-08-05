@@ -1,14 +1,14 @@
-﻿using DocumentConverter.Contracts.Interfaces.DocumentHandler;
+﻿using DocumentConverter.Contracts.Interfaces.Documents;
 using DocumentConverter.EF.Core.Models;
 using DocumentConverter.Models.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DocumentConverter.BusinessLogic.Classes.DocumentHandler
+namespace DocumentConverter.BusinessLogic.Classes.Documents
 {
     public class DocumentRepository : IDocumentRepository
     {
-        private OrganizationsAndDocumentsContext _context;
+        private readonly OrganizationsAndDocumentsContext _context;
         public DocumentRepository(OrganizationsAndDocumentsContext context)
         {
             _context = context;

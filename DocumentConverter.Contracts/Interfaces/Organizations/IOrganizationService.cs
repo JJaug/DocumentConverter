@@ -1,6 +1,6 @@
 ﻿using DocumentConverter.Models.Models;
 
-namespace DocumentConverter.Contracts.Interfaces.OrganizationHandler
+namespace DocumentConverter.Contracts.Interfaces.Organizations
 {
     public interface IOrganizationService
     {

@@ -1,9 +1,9 @@
-﻿using DocumentConverter.Contracts.Interfaces.DocumentHandler;
+﻿using DocumentConverter.Contracts.Interfaces.Documents;
 using DocumentConverter.Contracts.Interfaces.Organizations;
 using DocumentConverter.Models.Models;
 using System;
 
-namespace DocumentConverter.BusinessLogic.Classes.DocumentHandler
+namespace DocumentConverter.BusinessLogic.Classes.Documents
 {
     public class DocumentService : IDocumentService
     {

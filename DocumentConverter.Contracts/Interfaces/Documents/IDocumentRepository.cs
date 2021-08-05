@@ -2,7 +2,7 @@
 using DocumentConverter.Models.Models;
 using System.Collections.Generic;
 
-namespace DocumentConverter.Contracts.Interfaces.DocumentHandler
+namespace DocumentConverter.Contracts.Interfaces.Documents
 {
     public interface IDocumentRepository
     {
