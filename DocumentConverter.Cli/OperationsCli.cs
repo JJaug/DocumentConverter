@@ -104,7 +104,7 @@ namespace DocumentConverter.Cli
             var organizationDto = new OrganizationDto { Id = id, Name = name, FormatName = format, ExportPath = path };
             try
             {
-                if(_organizationService.AddOrganization(organizationDto))
+                if (_organizationService.AddOrganization(organizationDto))
                 {
                     Console.WriteLine("Organization was added successfuly!");
                 }
@@ -126,7 +126,7 @@ namespace DocumentConverter.Cli
             var name = Console.ReadLine();
             try
             {
-                if(_organizationService.RemoveOrganization(id, name))
+                if (_organizationService.RemoveOrganization(id, name))
                 {
                     Console.WriteLine("Organization has been removed.");
                 }

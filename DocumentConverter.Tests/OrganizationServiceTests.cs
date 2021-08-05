@@ -3,13 +3,14 @@ using DocumentConverter.Contracts.Interfaces.OrganizationHandler;
 using DocumentConverter.Contracts.Interfaces.Organizations;
 using DocumentConverter.EF.Core.Models;
 using DocumentConverter.Models.Models;
-using DocumentConverter.Tests.TestModels;
+using DocumentConverter.Tests.TestData;
 using NSubstitute;
 using NUnit.Framework;
 using System;
 
 namespace DocumentConverter.Tests
 {
+    [TestFixture]
     public class OrganizationServiceTests
     {
         private IOrganizationRepository _organizationRepository;

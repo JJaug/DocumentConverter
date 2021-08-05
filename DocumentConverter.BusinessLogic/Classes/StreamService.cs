@@ -1,8 +1,6 @@
 ﻿using DocumentConverter.Contracts.Interfaces;
-using DocumentConverter.Models.Models;
 using System.IO;
 using System.Text;
-using System.Xml.Serialization;
 
 namespace DocumentConverter.BusinessLogic.Classes
 {
@@ -20,12 +18,6 @@ namespace DocumentConverter.BusinessLogic.Classes
             using FileStream outputFileStream = new FileStream(filePath, FileMode.Create);
             stream.CopyTo(outputFileStream);
             return outputFileStream != null;
-        }
-        public Order GetInstanceOfOrderFromStream(Stream stream)
-        {
-            XmlSerializer xs = new XmlSerializer(typeof(Order));
-            var order = (Order)xs.Deserialize(stream);
-            return order;
         }
     }
 }

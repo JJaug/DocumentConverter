@@ -1,5 +1,4 @@
-﻿using DocumentConverter.Models.Models;
-using System.IO;
+﻿using System.IO;
 
 namespace DocumentConverter.Contracts.Interfaces
 {
@@ -7,7 +6,5 @@ namespace DocumentConverter.Contracts.Interfaces
     {
         public Stream Read(string documentPath);
         public bool Write(Stream stream, string filePath);
-        public Order GetInstanceOfOrderFromStream(Stream stream);
-
     }
 }
