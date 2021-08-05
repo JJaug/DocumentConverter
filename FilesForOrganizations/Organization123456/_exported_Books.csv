@@ -1,0 +1,4 @@
+ID,Name,Date,Note,Sender,Receiver,Line
+1,Books,2021-06-30 08:03:00.0,,"{ID:3997542}","{ID:123456,Operator:{ID:8887923,Name:Child organization}}","[{ID:1,Name:C# In A Nutshell 7.0,Description:""
+			Book about C# fundamentals
+		"",Quantity:{QuantityCount:1.0,QuantityCode:Each}},{ID:2,Name:Design patterns,Description:Book about design patterns,Quantity:{QuantityCount:3.0,QuantityCode:Each},Item:{Note:Will not accept broken pages,AdditionalItemProperty:[{Name:ISBN-13,Value:978-0201633610},{Name:Edition,Value:1st}]}}]"
