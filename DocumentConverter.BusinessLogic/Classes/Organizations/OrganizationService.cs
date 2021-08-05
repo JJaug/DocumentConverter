@@ -25,12 +25,14 @@ namespace DocumentConverter.BusinessLogic.Classes.Organizations
             }
             var organization = new Organization { Id = organizationDto.Id, Name = organizationDto.Name, FormatId = formatId, ExportPath = organizationDto.ExportPath, CreatedDate = DateTime.Now };
             _organizationRepository.AddToDatabase(organization);
+            _organizationRepository.Save();
             return true;
 
         }
         public bool RemoveOrganization(string id, string name)
         {
             _organizationRepository.DeleteFromDatabase(id, name);
+            _organizationRepository.Save();
             return true;
         }
         public bool CheckIfOrganizationsInFilePathExist(Order order)

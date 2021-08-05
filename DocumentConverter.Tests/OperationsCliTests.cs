@@ -1,20 +1,13 @@
 ﻿using DocumentConverter.BusinessLogic.Classes;
-using DocumentConverter.BusinessLogic.Classes.Converter;
-using DocumentConverter.BusinessLogic.Classes.Exporter;
 using DocumentConverter.BusinessLogic.FactoryPattern;
 using DocumentConverter.Cli;
 using DocumentConverter.Contracts.Interfaces;
-using DocumentConverter.Contracts.Interfaces.Converter;
 using DocumentConverter.Contracts.Interfaces.Documents;
 using DocumentConverter.Contracts.Interfaces.Organizations;
+using DocumentConverter.Tests.TestData;
 using NSubstitute;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DocumentConverter.Tests
 {
@@ -31,10 +24,13 @@ namespace DocumentConverter.Tests
         private IExportFactory _exportFactorySubstitute;
         private IConvertFactory _convertFactorySubstitute;
         private string documentPath;
+        private ModelsForTests _modelsForTests;
+
 
         [SetUp]
         public void Setup()
         {
+            _modelsForTests = new ModelsForTests();
             _streamServiceSubstitute = Substitute.For<IStreamService>();
             _streamService = new StreamService();
             _convertFactory = new ConvertFactory();
@@ -79,12 +75,33 @@ namespace DocumentConverter.Tests
             var formatTypeStream = exporter.Export(order);
             _streamServiceSubstitute.Write(formatTypeStream, filePath).Returns(false);
 
-            var result =_operationsCli.ExportFile();
+            var result = _operationsCli.ExportFile();
 
             Assert.AreEqual(result, "unexpected error occured.");
         }
         [Test]
         public void Should_ReturnSecondIfTrue_When_StreamAndFormatAreCorrect()
+        {
+            var stream = _streamService.Read(documentPath);
+            var formatType = "XML";
+            var converter = _convertFactory.GetFileType(formatType);
+            var order = converter.Convert(stream);
+            var folderPath = "C:\\Users\\jonas.jaugelis\\source\\repos\\DocumentConverter\\FilesForOrganizations\\Organization546545\\";
+            var fileName = $"_exported_{order.Name}.json";
+            var filePath = Path.Combine(folderPath, fileName);
+            _organizationService.CheckIfOrganizationsInFilePathExist(order).Returns(true);
+            _organizationService.GetExportPath(order).Returns(folderPath);
+            _organizationService.GetFormatType(order).Returns("JSON");
+            var exporter = _exportFactory.GetFileType("JSON");
+            var formatTypeStream = exporter.Export(order);
+            _streamServiceSubstitute.Write(formatTypeStream, filePath).Returns(true);
+
+            var result = _operationsCli.ExportFile();
+
+            Assert.AreEqual(result, $"Document was successfully exported! Devilvered to { filePath}");
+        }
+        [Test]
+        public void Should_ReturnExportedDocumentsInfo_When_GivenOrganizationId()
         {
 
         }

@@ -32,7 +32,7 @@ namespace DocumentConverter.Cli
                     Console.WriteLine(ExportFile());
                     break;
                 case 2:
-                    CheckFiles();
+                    Console.WriteLine(CheckFiles());
                     break;
                 case 3:
                     AddOrganization();
@@ -85,11 +85,11 @@ namespace DocumentConverter.Cli
                 return "Bad filepath or no organizatios";
             }
         }
-        public void CheckFiles()
+        public string CheckFiles()
         {
             Console.WriteLine("Please type in ID of organization you want to see exported files log of:");
             var organizationId = Console.ReadLine();
-            Console.WriteLine(_documentService.GetExportedDocumentsInfo(organizationId));
+            return _documentService.GetExportedDocumentsInfo(organizationId);
         }
         public void AddOrganization()
         {

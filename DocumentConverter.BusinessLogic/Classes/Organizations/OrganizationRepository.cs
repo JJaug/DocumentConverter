@@ -14,7 +14,6 @@ namespace DocumentConverter.BusinessLogic.Classes.Organizations
         public void AddToDatabase(Organization organization)
         {
             _context.Organizations.Add(organization);
-            _context.SaveChanges();
         }
 
         public void DeleteFromDatabase(string id, string name)
@@ -41,6 +40,10 @@ namespace DocumentConverter.BusinessLogic.Classes.Organizations
         public string GetOrganizationFilePath(string organizationId)
         {
             return _context.Organizations.FirstOrDefault(o => o.Id == organizationId).ExportPath;
+        }
+        public void Save()
+        {
+            _context.SaveChanges();
         }
     }
 }

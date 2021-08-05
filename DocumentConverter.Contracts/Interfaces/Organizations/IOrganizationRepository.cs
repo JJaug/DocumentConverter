@@ -10,7 +10,7 @@ namespace DocumentConverter.Contracts.Interfaces.Organizations
         public bool FindOrganizationById(string id);
         public string GetFormatType(string organizationId);
         public string GetOrganizationFilePath(string organizationId);
-
+        public void Save();
 
     }
 }

@@ -5,7 +5,7 @@
         public void ExecuteProgram(int input);
         public void CliInformation();
         public string ExportFile();
-        public void CheckFiles();
+        public string CheckFiles();
         public void AddOrganization();
         public void RemoveOrganization();
     }
